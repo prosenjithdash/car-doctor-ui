@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import logo from'../../../src/assets/logo/logo.svg'
 
@@ -70,7 +70,9 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end gap-2">
-                <button className="btn btn-outline btn-error ">Appointment</button>
+                <Link to='/signIn'>
+                    <button className="btn btn-outline btn-error ">Appointment</button>
+                </Link>
 
             </div>
         </div>
