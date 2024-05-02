@@ -1,9 +1,24 @@
 import { Link, NavLink } from "react-router-dom";
 
 import logo from'../../../src/assets/logo/logo.svg'
+import { useContext } from "react";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 const Navbar = () => {
 
+    const { signOut } = useContext(AuthContext);
+
+    const handleSignOut = e => {
+        e.preventDefault();
+        signOut()
+            .then(() => {
+                // Sign-out successful.
+                alert('Successfully SignOut.')
+            }).catch((error) => {
+                // An error happened.
+                console.log(error)
+            });
+    }
 
     const Links = <>
 

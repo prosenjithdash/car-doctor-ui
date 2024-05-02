@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom';
 import signInImage from'../../../src/assets/images/login/login.svg'
+import { useContext } from 'react';
+import { AuthContext } from '../../Providers/AuthProvider';
 const SignIn = () => {
+
+    const {logIn} = useContext(AuthContext);
 
     const handleSinIn = event => {
         event.preventDefault();
@@ -8,8 +12,21 @@ const SignIn = () => {
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(email,password)
+        console.log(email, password)
+        
+        logIn(email, password)
+        .then((userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
+            console.log(user)
+            alert('Successfully logIn done.')           
+        })
+            .catch((error) => {
+                const errorMessage = error.message;
+                console.log(errorMessage)
+            });
     }
+
     return (
         <div className='lg:flex gap-[70px] justify-between items-center max-w-[1240px] mx-auto '>
             <img className='w-1/2' src={signInImage} alt="" />

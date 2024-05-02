@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom';
 import signInImage from '../../../src/assets/images/login/login.svg'
+import { useContext } from 'react';
+import { AuthContext } from '../../Providers/AuthProvider';
 const SignUp = () => {
+
+    const { createUser } = useContext(AuthContext);
 
     const handleSignUp = event => {
         event.preventDefault();
@@ -12,7 +16,22 @@ const SignUp = () => {
         const password = form.password.value;
         const user = { name, email, password };
         console.log(user)
+
         console.log(name, email, password)
+
+        createUser(email, password)
+            .then((userCredential) => {
+                // Signed up 
+                const user = userCredential.user;
+                console.log(user)
+                alert('Successfully register done ')
+                // ...
+            })
+            .catch((error) => {
+                const errorMessage = error.message;
+                console.log(errorMessage)
+                // ..
+            });
         
     }
     return (
@@ -27,7 +46,7 @@ const SignUp = () => {
                     </div>
                     <div className="space-y-1 text-sm">
                         <label htmlFor="username" className="block text-black dark:text-gray-600">Email</label>
-                        <input type="email" name="email" id="username" placeholder="Email" className="w-full px-4 py-3 rounded-md border-gray-300 border  text-gray-100 dark:text-gray-800 focus:border-orange-400 focus:dark:border-orange-600" />
+                        <input type="email" name="email" id="username" placeholder="Email" className="w-full px-4 py-3 rounded-md border-gray-300 border  text-black dark:text-gray-800 focus:border-orange-400 focus:dark:border-orange-600" />
                     </div>
                     <div className="space-y-1 text-sm">
                         <label htmlFor="password" className="block text-gray-400 dark:text-gray-600">Password</label>
