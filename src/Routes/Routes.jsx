@@ -8,6 +8,7 @@ import SignIn from "../Pages/SignIn/SignIn";
 import SignUp from "../Pages/SignUp/SignUp";
 import CheckOut from "../Pages/CheckOut/CheckOut";
 import Bookings from "../Pages/Bookings/Bookings";
+import PrivetRoute from "./PrivetRoute";
 
 const router = createBrowserRouter([
     {
@@ -29,13 +30,13 @@ const router = createBrowserRouter([
             },
             {
                 path: '/checkout/:id',
-                element: <CheckOut />,
+                element: <PrivetRoute><CheckOut /></PrivetRoute>,
                 loader: ({ params }) => fetch(`http://localhost:8000/services/${params.id}`)
             },
             {
                 path: '/bookings',
-                element: <Bookings />,
-                loader:() => fetch('')
+                element: <PrivetRoute><Bookings /></PrivetRoute>
+               
             }
         ]
     },
