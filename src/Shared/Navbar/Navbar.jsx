@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import {  Link, NavLink } from "react-router-dom";
 
 import logo from'../../../src/assets/logo/logo.svg'
 import { useContext } from "react";
@@ -6,11 +6,10 @@ import { AuthContext } from "../../Providers/AuthProvider";
 
 const Navbar = () => {
 
-    const { signOut } = useContext(AuthContext);
+    const { user,logOut } = useContext(AuthContext);
 
-    const handleSignOut = e => {
-        e.preventDefault();
-        signOut()
+    const handleSignOut = () => {
+        logOut()
             .then(() => {
                 // Sign-out successful.
                 alert('Successfully SignOut.')
@@ -62,6 +61,24 @@ const Navbar = () => {
             isActive ? ' btn  border  border-orange-600 bg-white text-orange-600 hover:bg-orange-600 hover:text-white hover:border-0 font-bold rounded-[8px]' : 'font-bold'
         }>Contact</NavLink></li>
 
+        {
+            user?.email?
+                <>
+                    <li><NavLink to='/bookings' className={({ isActive }) =>
+                        isActive ? ' btn  border  border-orange-600 bg-white text-orange-600 hover:bg-orange-600 hover:text-white hover:border-0 font-bold rounded-[8px]' : 'font-bold'
+                    }>Bookings</NavLink></li>
+
+                    <li><NavLink className={({ isActive }) =>
+                        isActive ? ' btn  border  border-orange-600 bg-white text-orange-600 hover:bg-orange-600 hover:text-white hover:border-0 font-bold rounded-[8px]' : 'font-bold'
+                    }><button onClick={handleSignOut}>Sign Out</button></NavLink></li>
+                </>
+                :
+                <li><NavLink to='/signIn' className={({ isActive }) =>
+                    isActive ? ' btn  border  border-orange-600 bg-white text-orange-600 hover:bg-orange-600 hover:text-white hover:border-0 font-bold rounded-[8px]' : 'font-bold'
+            }>Sign In</NavLink></li>
+                // <Link to='/signIn'>Log In</Link>
+        }
+
 
 
 
@@ -85,9 +102,9 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end gap-2">
-                <Link to='/signIn'>
-                    <button className="btn btn-outline btn-error ">Appointment</button>
-                </Link>
+                
+                <button className="btn btn-outline btn-error ">Appointment</button>
+                
 
             </div>
         </div>

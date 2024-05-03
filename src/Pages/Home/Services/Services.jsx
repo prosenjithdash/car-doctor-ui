@@ -5,7 +5,9 @@ const Services = () => {
 
     const [services, setServices] = useState([]);
     useEffect(() => {
-        fetch('Services.json')
+
+        // api from mongodb server all services data
+        fetch('http://localhost:8000/services')
             .then(res => res.json())
             .then(data => {
             setServices(data)
